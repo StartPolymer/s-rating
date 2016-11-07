@@ -1,0 +1,136 @@
+<!--
+@license
+Copyright (c) 2016 The StartPolymer Project Authors. All rights reserved.
+This code may only be used under the MIT License found at https://github.com/StartPolymer/license
+The complete set of authors may be found at https://github.com/StartPolymer/authors
+The complete set of contributors may be found at https://github.com/StartPolymer/contributors
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+
+<!--
+`s-rating`
+Ultra fast Polymer elements for ratings.
+
+@demo demo/index.html
+-->
+
+<dom-module id="s-rating">
+<template strip-whitespace>
+
+<style>
+
+:host {
+  display: inline-block;
+
+  cursor: pointer;
+  user-select: none;
+
+  color: #bdbdbd; /* MD Grey 400 */
+  outline: 0;
+
+  font-size: 24px;
+  line-height: 1;
+}
+
+span {
+  display: inline-block;
+
+  width: 24px;
+  height: 24px;
+
+  text-align: center;
+
+  color: #f57c00; /* MD Orange 700 from site https://developers.google.com/web/fundamentals/performance/ */
+  border-radius: 12px;
+}
+
+:host(:not(:hover):not([value])) > span,
+:host(:not(:hover)[value="0"]) > span,
+:host(:not(:hover)[value="1"]) > span:nth-child(1) ~ span,
+:host(:not(:hover)[value="2"]) > span:nth-child(2) ~ span,
+:host(:not(:hover)[value="3"]) > span:nth-child(3) ~ span,
+:host(:not(:hover)[value="4"]) > span:nth-child(4) ~ span,
+:host(:hover) > span:hover ~ span {
+  color: inherit;
+}
+
+:host([disabled]) {
+  cursor: auto;
+  pointer-events: none;
+}
+
+paper-ripple {
+  color: #f57c00;
+}
+
+</style>
+
+<span>★</span>
+<span>★</span>
+<span>★</span>
+<span>★</span>
+<span>★</span>
+
+</template>
+<script>
+
+Polymer({
+
+  is: 's-rating',
+
+  properties: {
+    /**
+     * Rating value.
+     */
+    value: {
+      type: Number,
+      reflectToAttribute: true, // sets attribute
+      notify: true
+    }
+  },
+
+  ready: function() {
+    // Defer until after render!
+    Polymer.RenderStatus.afterNextRender(this, function() {
+      if (this.tabIndex < 0) {
+        this.tabIndex = 0;
+      }
+      if (!this.role) {
+        this.role = 'slider';
+      }
+      this.listen(this, 'down', '_onDown');
+      this.listen(this, 'keydown', '_onKeyDown');
+    });
+  },
+
+  _onDown: function(event) {
+    if (!this._ripple) {
+      this._ripple = document.createElement('paper-ripple');
+    }
+    var i = Array.from(Polymer.dom(this.root).querySelectorAll('span')).indexOf(event.target);
+
+    if (event.target.localName === 'span') {
+      event.target.style.position = 'relative';
+      Polymer.dom(event.target).appendChild(this._ripple);
+      this._ripple.uiDownAction(event);
+    }
+
+    this.value = i + 1;
+  },
+
+  _onKeyDown: function(event) {
+    var currentRating = this.value || 0;
+
+    if (event.keyCode === 37) {
+      this.value = Math.max(currentRating - 1, 0);
+    } else if (event.keyCode === 39) {
+      this.value = Math.min(currentRating + 1, 5);
+    }
+  }
+
+});
+
+</script>
+</dom-module>
