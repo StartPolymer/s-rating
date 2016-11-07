@@ -34,7 +34,11 @@ Ultra fast Polymer elements for ratings.
   line-height: 1;
 }
 
-span {
+:host > span {
+  color: #f57c00; /* MD Orange 700 from site https://developers.google.com/web/fundamentals/performance/ */
+}
+
+:host > span > span {
   display: inline-block;
 
   width: 24px;
@@ -42,7 +46,6 @@ span {
 
   text-align: center;
 
-  color: #f57c00; /* MD Orange 700 from site https://developers.google.com/web/fundamentals/performance/ */
   border-radius: 12px;
 }
 
@@ -67,11 +70,11 @@ paper-ripple {
 
 </style>
 
-<span>★</span>
-<span>★</span>
-<span>★</span>
-<span>★</span>
-<span>★</span>
+<span><span>★</span></span>
+<span><span>★</span></span>
+<span><span>★</span></span>
+<span><span>★</span></span>
+<span><span>★</span></span>
 
 </template>
 <script>
@@ -109,7 +112,7 @@ Polymer({
     if (!this._ripple) {
       this._ripple = document.createElement('paper-ripple');
     }
-    var i = Array.from(Polymer.dom(this.root).querySelectorAll('span')).indexOf(event.target);
+    var i = Array.from(Polymer.dom(this.root).querySelectorAll('span > span')).indexOf(event.target);
 
     if (event.target.localName === 'span') {
       event.target.style.position = 'relative';
