@@ -51,4 +51,4 @@ MIT: [StartPolymer/license](https://github.com/StartPolymer/license)
 
 
 [webcomponents-image]: https://img.shields.io/badge/webcomponents.org-published-blue.svg
-[webcomponents-url]: https://beta.webcomponents.org/collection/StartPolymer/s-rating
+[webcomponents-url]: https://beta.webcomponents.org/element/StartPolymer/s-rating
