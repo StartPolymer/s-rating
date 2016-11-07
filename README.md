@@ -12,7 +12,9 @@ Based on Reduce Cost performance pattern:
 - reduce use of default values
 - defer work until after render
 
-Check out the [demo and full documentation][webcomponents-url]
+## Demo
+
+[Full demo][webcomponents-demo]
 
 ![s-rating Demo](https://cdn.rawgit.com/StartPolymer/media/master/s-rating/s-rating-demo.png)
 
@@ -51,4 +53,5 @@ MIT: [StartPolymer/license](https://github.com/StartPolymer/license)
 
 
 [webcomponents-image]: https://img.shields.io/badge/webcomponents.org-published-blue.svg
-[webcomponents-url]: https://beta.webcomponents.org/collection/StartPolymer/s-rating
+[webcomponents-url]: https://beta.webcomponents.org/element/StartPolymer/s-rating
+[webcomponents-demo]: https://beta.webcomponents.org/element/StartPolymer/s-rating/demo/demo/index.html
